@@ -47,11 +47,11 @@ class pb:
 
     @staticmethod
     def hex(bs: bytes):
-        print(hexlify(bs))
+        return hexlify(bs)
     
     @staticmethod
     def unhex(s: str):
-        print(unhexlify(s))
+        return unhexlify(s)
     
     @staticmethod
     def bytes2c(bs: bytes):
