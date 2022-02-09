@@ -27,17 +27,16 @@ class pb:
             v = v >> 1
         
         width = 0
-        while v > 2 ** width:
+        while v < 2 ** width:
             width += 8
 
         bits += [0] * (width - len(bits))
-
         ngroups = (len(bits) - 1 + bits_per_line) // bits_per_line
 
         print("====" * bits_per_line)
         for g in range(ngroups):
             _pb_bits(bits[g*bits_per_line:(g+1)*bits_per_line], g*bits_per_line)
-            print("====" * bits_per_line)
+            print("====" * bits_per_line + "\n")
 
     @staticmethod
     def bytes2bits(bs: bytes, big_endian=False):
