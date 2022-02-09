@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple
 from binascii import hexlify, unhexlify
 
 print("PrettyBinary by @wtdcode is loaded.")
@@ -6,18 +6,18 @@ print("PrettyBinary by @wtdcode is loaded.")
 class pb:
 
     @staticmethod
-    def int2bits(v: int, bits_per_line=16):
-        def _pb_bits(bits: List[int], base=0):
+    def int2bits(v: int, bits_per_line=16, reverse=False):
+        def _pb_bits(bits: List[Tuple[int, int]], base=0):
             l = len(bits)
             s = ""
             for i in range(l):
-                s += f"{base+i:4}"
+                s += f"{bits[i][0]:4}"
             s += "\n"
             for i in range(l):
                 s += "----"
             s += "\n"
             for i in range(l):
-                s += f"{bits[i]:4}"
+                s += f"{bits[i][1]:4}"
             s += "\n"
             print(s)
 
@@ -26,14 +26,22 @@ class pb:
             width += 8
 
         bits = []
+        idx = 0
         while v != 0:
-            bits.append(v & 1)
+            bits.append((idx, v & 1))
             v = v >> 1
+            idx += 1
 
-        bits += [0] * (width - len(bits))
+        while idx < width:
+            bits.append((idx, 0))
+            idx += 1
+
+        if not reverse:
+            bits.reverse()
+
         ngroups = (len(bits) - 1 + bits_per_line) // bits_per_line
 
-        print("====" * bits_per_line)
+        print("====" * bits_per_line + "\n")
         for g in range(ngroups):
             _pb_bits(bits[g*bits_per_line:(g+1)*bits_per_line], g*bits_per_line)
             print("====" * bits_per_line + "\n")
