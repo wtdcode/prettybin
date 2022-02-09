@@ -21,14 +21,14 @@ class pb:
             s += "\n"
             print(s)
 
+        width = 0
+        while v > (2 ** width):
+            width += 8
+
         bits = []
         while v != 0:
             bits.append(v & 1)
             v = v >> 1
-        
-        width = 0
-        while v < 2 ** width:
-            width += 8
 
         bits += [0] * (width - len(bits))
         ngroups = (len(bits) - 1 + bits_per_line) // bits_per_line
