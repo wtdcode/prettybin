@@ -64,4 +64,4 @@ class pb:
     def bytes2c(bs: bytes):
         bs = list(bs)
 
-        print("".join(map(lambda x: f"\\x{x:02}", bs)))
+        print("".join(map(lambda v: f"\\x{v:02x}", bs)))
